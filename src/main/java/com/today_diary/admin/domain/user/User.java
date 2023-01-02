@@ -33,16 +33,21 @@ public class User implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private String phoneNum;
+    private String phoneNumber;
+
+    private String sex;
+    private int age;
 
     private UserRole userRole;
     @Builder
-    public User(String name, String email, String password, String phoneNum, UserRole role){
+    public User(String name, String email, String password, String phoneNumber, String sex, int age, UserRole role){
         this.name = name;
         this.email = email;
         this.password = password;
-        this.phoneNum = phoneNum;
+        this.phoneNumber = phoneNumber;
         this.userRole = role;
+        this.sex = sex;
+        this.age = age;
     }
 
     @Override
@@ -75,5 +80,11 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void update(String phoneNumber, int age, String sex) {
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.sex = sex;
     }
 }
