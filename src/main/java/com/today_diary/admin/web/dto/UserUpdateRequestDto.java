@@ -3,7 +3,7 @@ package com.today_diary.admin.web.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getterc
+@Getter
 @NoArgsConstructor
 public class UserUpdateRequestDto {
     private String phoneNumber;

@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -23,6 +24,7 @@ public class UserSaveRequestDto {
     @Size(min = 5, message = "password should have at least 5 characters")
     private String password;
     @NotEmpty
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$",message = "핸드폰 번호의 양식과 맞지 않습니다. 01x-xxx(x)-xxxx")
     private String phoneNumber;
     private String sex;
     private int age;
