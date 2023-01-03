@@ -45,11 +45,13 @@ public class UserControllerTest {
         String name = "유오준";
         String email = "yoj9168@gmail.com";
         String password = "test1234";
+        String passwordConfirm = "test1234";
         String phoneNumber = "010-4059-9168";
         UserSaveRequestDto dto = UserSaveRequestDto.builder()
                 .name(name)
                 .email(email)
                 .password(password)
+                .passwordConfirm(passwordConfirm)
                 .phoneNumber(phoneNumber)
                 .build();
         String url = "http://localhost:"+port+"/user";

@@ -24,16 +24,20 @@ public class UserSaveRequestDto {
     @Size(min = 5, message = "password should have at least 5 characters")
     private String password;
     @NotEmpty
+    @Size(min = 5, message = "password should have at least 5 characters")
+    private String passwordConfirm;
+    @NotEmpty
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$",message = "핸드폰 번호의 양식과 맞지 않습니다. 01x-xxx(x)-xxxx")
     private String phoneNumber;
     private String sex;
     private int age;
 
     @Builder
-    public UserSaveRequestDto(String name, String email, String password, String phoneNumber, String sex, int age){
+    public UserSaveRequestDto(String name, String email, String password, String passwordConfirm, String phoneNumber, String sex, int age){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.passwordConfirm = passwordConfirm;
         this.phoneNumber = phoneNumber;
         this.sex = sex;
         this.age = age;
