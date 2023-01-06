@@ -16,6 +16,12 @@ public class UserService {
 
     @Transactional
     public Long save(UserSaveRequestDto dto) {
+        if(checkEmailDuplicate(dto.getEmail())){
+            return -2L;
+        }
+        if(checkNameDuplicate(dto.getName())){
+            return -1L;
+        }
         return repository.save(dto.toEntity()).getId();
     }
 
@@ -28,5 +34,12 @@ public class UserService {
         User user = repository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지않음" + userId));
         user.update(dto.getPhoneNumber(), dto.getAge(), dto.getSex());
         return user.getId();
+    }
+
+    public Boolean checkEmailDuplicate(String email) {
+        return repository.existsByEmail(email);
+    }
+    public Boolean checkNameDuplicate(String name) {
+        return repository.existsByName(name);
     }
 }
