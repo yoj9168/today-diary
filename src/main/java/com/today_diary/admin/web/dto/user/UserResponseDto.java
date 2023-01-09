@@ -1,4 +1,4 @@
-package com.today_diary.admin.web.dto;
+package com.today_diary.admin.web.dto.user;
 
 import com.today_diary.admin.domain.user.User;
 import lombok.Getter;

@@ -1,11 +1,12 @@
-package com.today_diary.admin.service.User;
+package com.today_diary.admin.service;
 
 import com.today_diary.admin.config.BaseException;
+import com.today_diary.admin.config.BaseResponse;
 import com.today_diary.admin.domain.user.User;
 import com.today_diary.admin.domain.user.UserRepository;
-import com.today_diary.admin.web.dto.UserResponseDto;
-import com.today_diary.admin.web.dto.UserSaveRequestDto;
-import com.today_diary.admin.web.dto.UserUpdateRequestDto;
+import com.today_diary.admin.web.dto.user.UserResponseDto;
+import com.today_diary.admin.web.dto.user.UserSaveRequestDto;
+import com.today_diary.admin.web.dto.user.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ public class UserService {
     private final UserRepository repository;
 
     @Transactional
-    public Long save(UserSaveRequestDto dto) throws BaseException {
+    public Long save(UserSaveRequestDto dto) {
         Optional<User> emailExisting = repository.findByEmail(dto.getEmail());
         Optional<User> nameExisting = repository.findByName(dto.getName());
 
