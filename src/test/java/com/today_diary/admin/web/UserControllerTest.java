@@ -2,8 +2,8 @@ package com.today_diary.admin.web;
 
 import com.today_diary.admin.domain.user.User;
 import com.today_diary.admin.domain.user.UserRepository;
-import com.today_diary.admin.web.dto.UserSaveRequestDto;
-import com.today_diary.admin.web.dto.UserUpdateRequestDto;
+import com.today_diary.admin.web.dto.user.UserSaveRequestDto;
+import com.today_diary.admin.web.dto.user.UserUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

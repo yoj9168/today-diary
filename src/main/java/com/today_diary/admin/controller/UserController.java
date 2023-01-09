@@ -1,19 +1,20 @@
-package com.today_diary.admin;
+package com.today_diary.admin.controller;
 
 import com.today_diary.admin.config.BaseException;
 import com.today_diary.admin.config.BaseResponse;
-import com.today_diary.admin.config.BaseResponseStatus;
-import com.today_diary.admin.service.User.UserService;
-import com.today_diary.admin.web.dto.UserResponseDto;
-import com.today_diary.admin.web.dto.UserSaveRequestDto;
-import com.today_diary.admin.web.dto.UserUpdateRequestDto;
+import com.today_diary.admin.service.UserService;
+import com.today_diary.admin.utility.ValidationRegex;
+import com.today_diary.admin.web.dto.user.UserResponseDto;
+import com.today_diary.admin.web.dto.user.UserSaveRequestDto;
+import com.today_diary.admin.web.dto.user.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 import static com.today_diary.admin.config.BaseResponseStatus.*;
+import static com.today_diary.admin.utility.ValidationRegex.isRegexPhoneNumber;
+import static com.today_diary.admin.utility.ValidationRegex.isRegexEmail;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +24,12 @@ public class UserController {
 
     @PostMapping("/user")
     public BaseResponse save(@RequestBody @Valid UserSaveRequestDto dto) throws BaseException {
+        if(!isRegexEmail(dto.getEmail()) || dto.getEmail().equals("") || dto.getEmail().equals(null)){
+            return new BaseResponse(USERS_EMAIL_INVALID);
+        }
+        if(!isRegexPhoneNumber(dto.getPhoneNumber()) || dto.getPhoneNumber().equals("")){
+            return new BaseResponse(USERS_PHONENUMBER_INVALID);
+        }
         if (!dto.getPasswordConfirm().equals(dto.getPassword())) {
             return new BaseResponse(POST_USERS_CONFIRM_PASSWORD);
         }
