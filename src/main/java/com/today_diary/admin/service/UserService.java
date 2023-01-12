@@ -21,15 +21,15 @@ public class UserService {
     private final UserRepository repository;
 
     @Transactional
-    public Long save(UserSaveRequestDto dto) {
+    public Long save(UserSaveRequestDto dto) throws BaseException {
         Optional<User> emailExisting = repository.findByEmail(dto.getEmail());
         Optional<User> nameExisting = repository.findByName(dto.getName());
 
         if(emailExisting.isPresent()){
-            return -1L;
+            throw new BaseException(POST_USERS_EMAIL_DUPLICATE);
         }
         if(nameExisting.isPresent()){
-            return -2L;
+            throw new BaseException(POST_USERS_NAME_DUPLICATE);
         }
         return repository.save(dto.toEntity()).getId();
     }
