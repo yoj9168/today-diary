@@ -24,25 +24,10 @@ public class UserController {
 
     @PostMapping("/user")
     public BaseResponse save(@RequestBody @Valid UserSaveRequestDto dto) throws BaseException {
-        if(!isRegexEmail(dto.getEmail()) || dto.getEmail().equals("") || dto.getEmail().equals(null)){
-            return new BaseResponse(USERS_EMAIL_INVALID);
-        }
-        if(!isRegexPhoneNumber(dto.getPhoneNumber()) || dto.getPhoneNumber().equals("")){
-            return new BaseResponse(USERS_PHONENUMBER_INVALID);
-        }
         if (!dto.getPasswordConfirm().equals(dto.getPassword())) {
             return new BaseResponse(POST_USERS_CONFIRM_PASSWORD);
         }
-
         Long id = service.save(dto);
-        if(id < 0L){
-            if(id == -1L){
-                return new BaseResponse(POST_USERS_EMAIL_DUPLICATE);
-            }
-            else{
-                return new BaseResponse(POST_USERS_NAME_DUPLICATE);
-            }
-        }
         return new BaseResponse(id);
     }
     @GetMapping("/user-email/{email}/exists")
