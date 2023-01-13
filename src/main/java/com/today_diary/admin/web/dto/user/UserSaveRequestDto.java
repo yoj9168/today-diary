@@ -1,10 +1,10 @@
 package com.today_diary.admin.web.dto.user;
 
 import com.today_diary.admin.domain.user.User;
+import com.today_diary.admin.enums.UserRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
@@ -52,6 +52,8 @@ public class UserSaveRequestDto {
                 .phoneNumber(phoneNumber)
                 .age(age)
                 .sex(sex)
+                .role(UserRole.USER)
+                .status("active")
                 .build();
     }
 }

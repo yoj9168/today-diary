@@ -5,11 +5,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,9 +41,21 @@ public class User implements UserDetails {
     private String sex;
     private int age;
 
+    @Column(columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
+    @CreationTimestamp
+    private LocalDateTime createdAt; // 생성일
+
+    @Column(columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @UpdateTimestamp
+    private LocalDateTime updatedAt; // 수정일
+
+    @Column(nullable = false, columnDefinition = "varchar(10) default 'active'")
+    private String status; // 회원 상태
+
     private UserRole userRole;
+
     @Builder
-    public User(String name, String email, String password, String phoneNumber, String sex, int age, UserRole role){
+    public User(String name, String email, String password, String phoneNumber, String sex, int age, UserRole role, String status){
         this.name = name;
         this.email = email;
         this.password = password;
@@ -48,6 +63,7 @@ public class User implements UserDetails {
         this.userRole = role;
         this.sex = sex;
         this.age = age;
+        this.status = status;
     }
 
     @Override
